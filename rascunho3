@@ -1,0 +1,17 @@
+import serial
+
+try:
+    conectado = serial.Serial('COM3', 115200)
+    print("Conectado com a porta", conectado.portstr)
+
+except serial.SerialException:
+    print ('porta usb não detctada')
+    pass
+
+comando = input(int('Digite L para ligar ou D para desligar'))
+
+if comando != '0':
+    conectado.write(b'1')
+else:
+    conectado.write(b'0')
+

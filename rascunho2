@@ -1,0 +1,4 @@
+import serial
+
+conectado = serial.Serial('COM3', 115200)
+

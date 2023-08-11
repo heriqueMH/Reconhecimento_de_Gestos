@@ -1,0 +1,48 @@
+import  cv2
+import  numpy  as  np
+from  pyfirmata  import  Arduino
+
+porta  =  'COM3'
+board  =  Arduino ( porta )
+
+ledVerde  =  6
+LedAm  =  7
+ledVermelho  =  8
+
+cap  =  cv2.VideoCapture ( 0 )
+corChange =  ''
+corFinal  =  ''
+
+while  True :
+    _ , img  =  cap . leia ()
+    h , w , _  =  img.shape
+    offset  =  100
+    campo  =  img [ offset : h - offset , offset : w - offset ]
+    cv2.rectangle( img,(offset, offset ),( w - offset , h - offset),( 255 , 0 , 0 ), 3 )
+
+    corMediaLinha  =  np.avarege ( campo, axis = 0 )
+    corMedia  =  np.media ( corMediaLinha , axis = 0 )
+    r , g , b  =  int ( corMedia [ 2 ]), int ( corMedia [ 1 ] ), int ( corMedia [ 0 ])
+    cor  = [ r , g , b ]
+    print( cor )
+    if  r  >= 140  and  g >= 140  and   b  <= 60 :
+        corFinal  =  'Amarelo'
+        board.digital [ LedAm ]. write( 1 )
+    elif  np.argmax ( cor ) == 0 :
+        board.digital[ ledVermelho ]. write( 1 )
+        corFinal  =  'Vermelho'
+    elif  np.argmax ( cor ) == 1 :
+        board.digital [ ledVerde ]. write( 1 )
+        corFinal  =  'Verde'
+
+    if  corFinal  !=  corChange :
+        board.digital [ ledVermelho ]. write( 0 )
+        board.digital [ ledVerde ]. write( 0 )
+        board.digital [ LedAm ]. write( 0 )
+
+    corChange  =  corFinal
+    print( corFinal )
+
+    cv2 . imshow ( 'img' , img )
+    #cv2.imshow('campo', campo)
+    cv2 . esperaKey ( 1 )
