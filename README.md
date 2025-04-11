@@ -1,6 +1,5 @@
 ### README - python-reconhecimento-gestos
 
-```markdown
 # Python - Reconhecimento de Gestos 🤖
 
 Projeto em Python para reconhecimento de gestos com uso de visão computacional, utilizando bibliotecas como OpenCV.
@@ -20,6 +19,5 @@ Projeto em Python para reconhecimento de gestos com uso de visão computacional,
 
 ## 🚀 Como executar o projeto
 
-```bash
 git clone https://github.com/seu-usuario/python-reconhecimento-gestos.git
 cd python-reconhecimento-gestos
